@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Space_Grotesk, Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { Analytics } from "@vercel/analytics/next"
+import Script from "next/script";
 
 const spaceGrotesk = Space_Grotesk({
   variable: "--font-space-grotesk",
@@ -89,6 +90,20 @@ export default function RootLayout({
       className={`${spaceGrotesk.variable} ${inter.variable} ${jetbrainsMono.variable} h-full`}
       suppressHydrationWarning
     >
+      <head>
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-LJR1GTGC9X"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-LJR1GTGC9X');
+          `}
+        </Script>
+      </head>
       <Analytics />
       <body className="min-h-full flex flex-col antialiased">{children}</body>
     </html>
